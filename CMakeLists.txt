@@ -24,6 +24,11 @@ target_sources(
         src/Triangle.cpp
         src/main.cpp
         src/Figure.cpp
+        src/StringFiguresFactory.cpp
+        Headers/RandomGeneratorFigures.h
+        src/RandomGeneratorFigures.cpp
+        Headers/StreamFigureFactory.h
+        src/StreamFigureFactory.cpp
 )
 
 # Executable target for the application
@@ -41,6 +46,12 @@ add_executable(application
         src/StringFiguresFactory.cpp
         Headers/RandomGeneratorFigures.h
         src/RandomGeneratorFigures.cpp
+        Headers/Factory.h
+        src/Factory.cpp
+        src/StreamFigureFactory.cpp
+        Headers/StreamFigureFactory.h
+        Headers/Factory.h
+        src/Factory.cpp
 )
 
 set_target_properties(application PROPERTIES OUTPUT_NAME "calc")
@@ -66,6 +77,8 @@ FetchContent_MakeAvailable(Catch2)
 add_executable(unit-tests
         test/test.cpp
         src/StringFiguresFactory.cpp
+        src/RandomGeneratorFigures.cpp
+        src/StreamFigureFactory.cpp
 )
 
 target_link_libraries(

@@ -22,7 +22,10 @@ std::vector<double> StringFiguresFactory::getNums(const std::string &str) {
 }
 
 Figure * StringFiguresFactory::createFromString(const std::string &representation) {
-    //find will return the position of the first whitespace
+    if (representation.empty()) {
+        return nullptr;
+    }
+    //find(' ') will return the position of the first whitespace
     size_t whiteSpace = representation.find(' ');
     if(whiteSpace == std::string::npos) {
         throw std::invalid_argument("Invalid representation!");
@@ -39,6 +42,9 @@ Figure * StringFiguresFactory::createFromString(const std::string &representatio
     else if(figureType == "Triangle") {
         std::vector<double> sides = getNums(representation.substr(whiteSpace +1));
         return new Triangle(sides[0], sides[1], sides[2]);
+    }
+    else {
+        throw std::runtime_error("Invalid Figure");
     }
     return nullptr;
 }

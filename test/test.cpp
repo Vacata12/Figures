@@ -2,9 +2,11 @@
 #include "catch2/catch_all.hpp"
 #include "catch2/catch_test_macros.hpp"
 #include "../Headers/Circle.h"
+#include "../Headers/RandomGeneratorFigures.h"
 #include "../Headers/Rectangle.h"
 #include "../Headers/Triangle.h"
 #include "../Headers/StringFiguresFactory.h"
+#include "../Headers/StreamFigureFactory.h"
 #include "catch2/internal/catch_test_registry.hpp"
 
 TEST_CASE("Circle") {
@@ -60,4 +62,21 @@ TEST_CASE("Create triangle through string factory") {
     Figure* t = StringFiguresFactory::createFromString("Triangle 3 4 5");
     REQUIRE(t->toString() == "Triangle 3 4 5");
     delete t;
+}
+
+TEST_CASE("Create triangle through stream factory") {
+    std::istringstream input("Triangle 3 4 5");
+    StreamFigureFactory sff(input);
+    Figure* t = sff.create();
+    REQUIRE(t->toString() == "Triangle 3 4 5");
+    delete t;
+}
+
+TEST_CASE("Create Rectangle through file in stream factory") {
+    std::ifstream file("../src/figures.txt");
+    REQUIRE(file.is_open());
+    StreamFigureFactory sff(file);
+    Figure* r = sff.create();
+    REQUIRE(r->toString() == "Rectangle 10 20");
+    delete r;
 }

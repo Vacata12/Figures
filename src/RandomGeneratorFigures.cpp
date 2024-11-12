@@ -3,11 +3,7 @@
 //
 #include "../Headers/RandomGeneratorFigures.h"
 
-
-double RandomGeneratorFigures::min = 0;
-double RandomGeneratorFigures::max = 1000;
-
-Figure * RandomGeneratorFigures::createRandomFigure() {
+Figure * RandomGeneratorFigures::create() {
     int figure = std::rand() % 3;
     std::uniform_real_distribution<double> unif(min,max);
     std::default_random_engine re;

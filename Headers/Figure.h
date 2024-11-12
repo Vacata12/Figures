@@ -5,6 +5,8 @@
 #ifndef FIGURE_H
 #define FIGURE_H
 #include <string>
+#include <iostream>
+#include <fstream>
 #include <iomanip>
 #include <sstream>
 #include <vector>

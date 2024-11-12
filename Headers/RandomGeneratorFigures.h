@@ -5,15 +5,16 @@
 #ifndef RANDOMGENERATORFIGURES_H
 #define RANDOMGENERATORFIGURES_H
 #include <random>
+#include "Factory.h"
 #include "../Headers/Circle.h"
 #include "../Headers/Rectangle.h"
 #include "../Headers/Triangle.h"
-class RandomGeneratorFigures {
+class RandomGeneratorFigures : public Factory{
 private:
-    static double min;
-    static double max;
+    const double min = 0;
+    const double max = 1000;
 public:
-    static Figure* createRandomFigure();
+     Figure* create() override;
 };
 
 
