@@ -7,7 +7,24 @@
 #include "../Headers/Triangle.h"
 #include "../Headers/StringFiguresFactory.h"
 #include "../Headers/StreamFigureFactory.h"
+#include "../Headers/AbstractFactory.h"
 #include "catch2/internal/catch_test_registry.hpp"
+
+TEST_CASE("Invalid triangle") {
+    REQUIRE_THROWS_AS(Triangle(1, 2, 3), std::invalid_argument);
+    REQUIRE_THROWS_AS(Triangle(0, 0, 0), std::invalid_argument);
+    REQUIRE_THROWS_AS(Triangle(-1, -2, -3), std::invalid_argument);
+    REQUIRE_THROWS_AS(Triangle(std::numeric_limits<double>::max(), 3, 4), std::overflow_error);
+}
+TEST_CASE("Invalid rectangle") {
+    REQUIRE_THROWS_AS(Rectangle(0, 0), std::invalid_argument);
+    REQUIRE_THROWS_AS(Rectangle(-1, -2), std::invalid_argument);
+    REQUIRE_THROWS_AS(Rectangle(std::numeric_limits<double>::max(), 3), std::overflow_error);
+}
+TEST_CASE("Invalid circle") {
+    REQUIRE_THROWS_AS(Circle(0), std::invalid_argument);
+    REQUIRE_THROWS_AS(Circle(-1), std::invalid_argument);
+}
 
 TEST_CASE("Circle") {
     Circle c(5);
@@ -42,10 +59,6 @@ TEST_CASE("Clone") {
     delete t1;
 }
 
-TEST_CASE("Invalid triangle") {
-    REQUIRE_THROWS_AS(Triangle(1, 2, 3), std::invalid_argument);
-}
-
 TEST_CASE("Create circle through string factory") {
     Figure* c = StringFiguresFactory::createFromString("Circle 5");
     REQUIRE(c->toString() == "Circle 5");
@@ -65,18 +78,30 @@ TEST_CASE("Create triangle through string factory") {
 }
 
 TEST_CASE("Create triangle through stream factory") {
-    std::istringstream input("Triangle 3 4 5");
+    std::istringstream* input = new std::istringstream("Triangle 3 4 5");
     StreamFigureFactory sff(input);
     Figure* t = sff.create();
     REQUIRE(t->toString() == "Triangle 3 4 5");
+    delete input;
     delete t;
 }
 
 TEST_CASE("Create Rectangle through file in stream factory") {
-    std::ifstream file("../src/figures.txt");
-    REQUIRE(file.is_open());
+    std::ifstream* file = new std::ifstream("../src/figures.txt");
+    REQUIRE(file->is_open());
     StreamFigureFactory sff(file);
     Figure* r = sff.create();
     REQUIRE(r->toString() == "Rectangle 10 20");
+    delete file;
     delete r;
+}
+
+TEST_CASE("Create abstract factory") {
+    AbstractFactory af;
+    Factory* rf = af.getFactory("random");
+    Factory* sf = af.getFactory("stream", new std::istringstream("Triangle 3 4 5"));
+    REQUIRE(dynamic_cast<RandomGeneratorFigures*>(rf));
+    REQUIRE(dynamic_cast<StreamFigureFactory*>(sf));
+    delete rf;
+    delete sf;
 }

@@ -8,7 +8,10 @@ bool Triangle::validateTriangle(const double &a, const double &b, const double &
 }
 
 Triangle::Triangle(const double &a, const double &b, const double &c) {
-    if(!validateTriangle(a,b,c)) {
+    if(checkForOverFlow({a, b, c})) {
+        throw std::overflow_error("Overflow Error");
+    }
+    if(!validateTriangle(a,b,c) || !positiveNums({a, b})) {
         throw std::invalid_argument("Invalid triangle sides");
     }
     this->a = a;

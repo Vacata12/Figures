@@ -4,6 +4,12 @@
 #include "../Headers/Rectangle.h"
 
 Rectangle::Rectangle(const double &a, const double &b) {
+    if(checkForOverFlow({a, b})) {
+        throw std::overflow_error("Overflow Error");
+    }
+    if(!positiveNums({a, b})) {
+        throw std::invalid_argument("Sides of the Rectangle cannot be 0 or negative");
+    }
     this->a = a;
     this->b = b;
     this->per = 2 * (a + b);

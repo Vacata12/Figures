@@ -4,6 +4,9 @@
 #include "../Headers/Circle.h"
 
 Circle::Circle(const double &r) {
+    if(!positiveNums({r})) {
+        throw std::invalid_argument("Radius cannot be 0 or negative number");
+    }
     this->r = r;
     this->per = 2 * 3.14 * r;
 }

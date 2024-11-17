@@ -8,13 +8,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_compile_options($<$<CXX_COMPILER_ID:MSVC>:/MP>)
 
 # Library target for the sample library
-add_library(samplelib STATIC)
-
-set_target_properties(samplelib PROPERTIES OUTPUT_NAME "sample")
-
-target_sources(
-        samplelib
-        PRIVATE
+add_library(samplelib STATIC
+        Headers/AbstractFactory.h
+        src/AbstractFactory.cpp
         Headers/Figure.h
         Headers/Circle.h
         Headers/Triangle.h
@@ -22,14 +18,16 @@ target_sources(
         src/Circle.cpp
         src/Rectangle.cpp
         src/Triangle.cpp
-        src/main.cpp
-        src/Figure.cpp
         src/StringFiguresFactory.cpp
         Headers/RandomGeneratorFigures.h
         src/RandomGeneratorFigures.cpp
         Headers/StreamFigureFactory.h
         src/StreamFigureFactory.cpp
+        Headers/HelperFunctions.h
+        src/HelperFunctions.cpp
 )
+
+set_target_properties(samplelib PROPERTIES OUTPUT_NAME "sample")
 
 # Executable target for the application
 add_executable(application
@@ -41,8 +39,7 @@ add_executable(application
         src/Circle.cpp
         src/Rectangle.cpp
         src/Triangle.cpp
-        src/main.cpp
-        src/Figure.cpp
+        src/Application.cpp
         src/StringFiguresFactory.cpp
         Headers/RandomGeneratorFigures.h
         src/RandomGeneratorFigures.cpp
@@ -52,6 +49,10 @@ add_executable(application
         Headers/StreamFigureFactory.h
         Headers/Factory.h
         src/Factory.cpp
+        Headers/AbstractFactory.h
+        src/AbstractFactory.cpp
+        Headers/HelperFunctions.h
+        src/HelperFunctions.cpp
 )
 
 set_target_properties(application PROPERTIES OUTPUT_NAME "calc")
@@ -79,6 +80,8 @@ add_executable(unit-tests
         src/StringFiguresFactory.cpp
         src/RandomGeneratorFigures.cpp
         src/StreamFigureFactory.cpp
+        Headers/AbstractFactory.h
+        src/AbstractFactory.cpp
 )
 
 target_link_libraries(

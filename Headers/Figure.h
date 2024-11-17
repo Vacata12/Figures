@@ -10,6 +10,7 @@
 #include <iomanip>
 #include <sstream>
 #include <vector>
+#include "HelperFunctions.h"
 
 class Figure {
 protected:
@@ -20,7 +21,5 @@ public:
     virtual std::string toString() const = 0;
     virtual ~Figure() = default;
 };
-
-std::string convertDoubleToString(double num);
 
 #endif //FIGURE_H
