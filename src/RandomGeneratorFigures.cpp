@@ -3,17 +3,17 @@
 //
 #include "../Headers/RandomGeneratorFigures.h"
 
-Figure * RandomGeneratorFigures::create() {
+std::unique_ptr<Figure> RandomGeneratorFigures::create() {
     int figure = std::rand() % 3;
     std::uniform_real_distribution<double> unif(min,max);
     std::default_random_engine re;
     switch (figure) {
         case 0:
-            return new Circle(unif(re));
+            return std::make_unique<Circle>(unif(re));
         case 1:
-            return new Rectangle (unif(re), unif(re));
+            return std::make_unique<Rectangle>(unif(re), unif(re));
         case 2:
-            return new Triangle (unif(re), unif(re), unif(re));
+            return std::make_unique<Triangle>(unif(re), unif(re), unif(re));
     }
     return nullptr;
 }

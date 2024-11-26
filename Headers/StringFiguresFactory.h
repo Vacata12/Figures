@@ -13,7 +13,7 @@ class StringFiguresFactory {
     static std::vector<double> getNums(const std::string& str);
 public:
     StringFiguresFactory() = default;
-    static Figure* createFromString(const std::string& representation);
+    static std::unique_ptr<Figure> createFromString(const std::string& representation);
 };
 
 

@@ -21,7 +21,7 @@ std::vector<double> StringFiguresFactory::getNums(const std::string &str) {
     return res;
 }
 
-Figure * StringFiguresFactory::createFromString(const std::string &representation) {
+std::unique_ptr<Figure> StringFiguresFactory::createFromString(const std::string &representation) {
     if (representation.empty()) {
         return nullptr;
     }
@@ -33,18 +33,17 @@ Figure * StringFiguresFactory::createFromString(const std::string &representatio
     std::string figureType = representation.substr(0, whiteSpace);
     if(figureType == "Circle") {
         std::string radius = representation.substr(whiteSpace);
-        return new Circle(std::stod(radius));
+        return std::make_unique<Circle>(std::stod(radius));
     }
     else if(figureType == "Rectangle") {
         std::vector<double> sides = getNums(representation.substr(whiteSpace +1));
-        return new Rectangle(sides[0], sides[1]);
+        return std::make_unique<Rectangle>(sides[0], sides[1]);
     }
     else if(figureType == "Triangle") {
         std::vector<double> sides = getNums(representation.substr(whiteSpace +1));
-        return new Triangle(sides[0], sides[1], sides[2]);
+        return std::make_unique<Triangle>(sides[0], sides[1], sides[2]);
     }
     else {
         throw std::runtime_error("Invalid Figure");
     }
-    return nullptr;
 }

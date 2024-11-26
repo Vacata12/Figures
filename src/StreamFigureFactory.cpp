@@ -7,9 +7,7 @@
 
 StreamFigureFactory::StreamFigureFactory(std::istream* input) : input(input) {}
 
-Figure * StreamFigureFactory::create() {
+std::unique_ptr<Figure> StreamFigureFactory::create() {
     std::string figure(std::istreambuf_iterator<char>(*input), {});
     return StringFiguresFactory::createFromString(figure);
 }
-
-

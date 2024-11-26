@@ -13,7 +13,7 @@ public:
     Rectangle() = default;
     Rectangle(const double& a, const double& b);
     double getPerimeter() const override;
-    Figure* clone() const override;
+    std::unique_ptr<Figure> clone() const override;
     std::string toString() const override;
 };
 #endif //RECTANGLE_H

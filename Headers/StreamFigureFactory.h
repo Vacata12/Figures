@@ -13,7 +13,7 @@ private:
     std::istream* input = nullptr;
 public:
     StreamFigureFactory(std::istream* input);
-    Figure* create() override;
+    std::unique_ptr<Figure> create() override;
 };
 
 #endif //STREAMFACTORY_H

@@ -19,8 +19,8 @@ double Rectangle::getPerimeter() const {
     return per;
 }
 
-Figure * Rectangle::clone() const {
-    return new Rectangle(*this);
+std::unique_ptr<Figure> Rectangle::clone() const {
+    return std::make_unique<Rectangle>(*this);
 }
 
 std::string Rectangle::toString() const {

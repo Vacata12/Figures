@@ -14,7 +14,7 @@ private:
     const double min = 0;
     const double max = 1000;
 public:
-     Figure* create() override;
+    std::unique_ptr<Figure> create() override;
 };
 
 

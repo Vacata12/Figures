@@ -7,6 +7,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <memory>
 #include <iomanip>
 #include <sstream>
 #include <vector>
@@ -17,7 +18,7 @@ protected:
     double per = 0;
 public:
     virtual double getPerimeter() const = 0;
-    virtual Figure* clone() const = 0;
+    virtual std::unique_ptr<Figure> clone() const = 0;
     virtual std::string toString() const = 0;
     virtual ~Figure() = default;
 };

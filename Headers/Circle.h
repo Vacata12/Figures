@@ -12,7 +12,7 @@ public:
     Circle() =default;
     Circle(const double& r);
     double getPerimeter() const override;
-    Figure* clone() const override;
+    std::unique_ptr<Figure> clone() const override;
     std::string toString() const override;
 };
 #endif //CIRCLE_H

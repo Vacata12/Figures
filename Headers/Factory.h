@@ -8,7 +8,7 @@
 
 class Factory {
 public:
-    virtual Figure* create() = 0;
+    virtual std::unique_ptr<Figure> create() = 0;
     virtual ~Factory() = default;
 };
 
