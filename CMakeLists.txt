@@ -44,15 +44,14 @@ add_executable(application
         Headers/RandomGeneratorFigures.h
         src/RandomGeneratorFigures.cpp
         Headers/Factory.h
-        src/Factory.cpp
         src/StreamFigureFactory.cpp
         Headers/StreamFigureFactory.h
         Headers/Factory.h
-        src/Factory.cpp
         Headers/AbstractFactory.h
         src/AbstractFactory.cpp
         Headers/HelperFunctions.h
         src/HelperFunctions.cpp
+        Headers/Figure.h
 )
 
 set_target_properties(application PROPERTIES OUTPUT_NAME "calc")

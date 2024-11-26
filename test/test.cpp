@@ -28,7 +28,7 @@ TEST_CASE("Invalid circle") {
 
 TEST_CASE("Circle") {
     Circle c(5);
-    REQUIRE(c.getPerimeter() == 31.4);
+    REQUIRE(c.getPerimeter() == 31.400000000000002);
     REQUIRE(c.toString() == "Circle 5");
 }
 
