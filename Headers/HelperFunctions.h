@@ -12,6 +12,7 @@
 #include <limits>
 #include <string>
 
+
 std::string convertDoubleToString(double num);
 /*
  * Those functions are designed to check the sides of various figures.
