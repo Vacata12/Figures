@@ -11,6 +11,7 @@
 #include <initializer_list>
 #include <limits>
 #include <string>
+#include <fstream>
 
 
 std::string convertDoubleToString(double num);
@@ -22,7 +23,8 @@ std::string convertDoubleToString(double num);
  * Instead, you can use this single function to handle all figures.
  * <limits> give me access to std::numeric_limits<double>::max()
  */
-bool positiveNums(std::initializer_list<double> nums);
-bool checkForOverFlow(std::initializer_list<double> nums);
+bool positiveNums(std::initializer_list<double > nums);
+bool checkForOverFlow(std::initializer_list<double > nums);
+
 
 #endif //HELPERFUNCTIONS_H

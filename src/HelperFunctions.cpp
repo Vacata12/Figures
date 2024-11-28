@@ -22,7 +22,7 @@ std::string convertDoubleToString(double num) {
     return result;
 }
 
-bool positiveNums(std::initializer_list<double> nums) {
+bool positiveNums(std::initializer_list<double > nums) {
     for(double num : nums) {
         if(num <= 0) {
             return false;
@@ -36,7 +36,7 @@ bool positiveNums(std::initializer_list<double> nums) {
  * 5 + 3 + 4 = 12 > 10
  * So we overflow
  */
-bool checkForOverFlow(std::initializer_list<double> nums) {
+bool checkForOverFlow(std::initializer_list<double > nums) {
     double max_double = std::numeric_limits<double>::max();
     double sum = 0.0;
 
