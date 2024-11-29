@@ -5,12 +5,12 @@
 #include "../Headers/StreamFigureFactory.h"
 
 
-StreamFigureFactory::StreamFigureFactory(std::istream* input) : input(input) {}
+StreamFigureFactory::StreamFigureFactory(std::unique_ptr<std::istream> input) : input(std::move(input)) {}
 
 std::unique_ptr<Figure> StreamFigureFactory::create() {
     std::string line;
-    if (std::getline(*input, line)) {  // Read one line from the stream
+    if (std::getline(*input, line)) {
         return StringFiguresFactory::createFromString(line);
     }
-    return nullptr; // Return nullptr if no input or end of stream
+    return nullptr;
 }

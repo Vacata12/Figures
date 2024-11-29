@@ -11,7 +11,7 @@ Triangle::Triangle(const double &a, const double &b, const double &c) {
     if(checkForOverFlow({a, b, c})) {
         throw std::overflow_error("Overflow Error");
     }
-    if(!validateTriangle(a,b,c) || !positiveNums({a, b})) {
+    if(!validateTriangle(a,b,c) || !positiveNums({a, b, c})) {
         throw std::invalid_argument("Invalid triangle sides");
     }
     this->a = a;

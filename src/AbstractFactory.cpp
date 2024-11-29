@@ -5,14 +5,21 @@
 
 
 
-Factory * AbstractFactory::getFactory(const std::string &input, std::istream* stream) {
-    if (input == "random") {
-        return new RandomGeneratorFigures();
+
+std::unique_ptr<Factory> AbstractFactory::getFactory(std::unique_ptr<std::istream> stream) {
+    if(!stream) {
+        std::cout << "Invalid stream!\n";
     }
-    else if (input == "stream" && stream) {
-        return new StreamFigureFactory(stream);
-    }
+    std::string streamChoosen;
+    *stream >> streamChoosen;
+    if (streamChoosen == "random") {
+        return std::unique_ptr<Factory>(new RandomGeneratorFigures());
+    } 
+    else if (streamChoosen == "stream") {
+        stream->get();
+        return std::unique_ptr<Factory>(new StreamFigureFactory(std::move(stream)));
+    } 
     else {
-        throw std::invalid_argument("Invalid stream or input");
+        throw std::invalid_argument("Invalid input: " + streamChoosen);
     }
 }

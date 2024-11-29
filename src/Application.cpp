@@ -2,67 +2,29 @@
 // Created by Ivan Stoynev on 9.11.24.
 //
 #include <iostream>
+#include <memory>
 #include "../Headers/Figure.h"
 #include "../Headers/HelperFunctions.h"
-#include "../Headers/RandomGeneratorFigures.h"
-#include "../Headers/StreamFigureFactory.h"
+#include "../Headers/AbstractFactory.h"
 
-void randGenFig(std::vector<std::unique_ptr<Figure> >& figures);
-void createFigThroughConsole(std::vector<std::unique_ptr<Figure> >& figures);
-void createFigThroughFile(std::vector<std::unique_ptr<Figure> >& figures);
 
 int main() {
     std::vector<std::unique_ptr<Figure> > Figures;
-    createFigThroughFile(Figures);
-    return 0;
-}
-
-void randGenFig(std::vector<std::unique_ptr<Figure> >& figures) {
-    RandomGeneratorFigures randomFactory;
+    AbstractFactory af;
     while (true) {
-        try {
-            auto newFigure = randomFactory.create();
-            figures.push_back(std::move(newFigure));
-            std::cout << "Figure added successfully.\n";
+        std::cout << "Enter 'random' or 'stream' (or 'exit' to quit): ";
+        std::string input;
+        std::getline(std::cin, input);
+        if (input == "exit") {
             break;
+        }
+        try {
+            std::unique_ptr<std::istream> inputStream = std::unique_ptr<std::istream>(new std::istringstream(input));
+            std::unique_ptr<Factory> factory = af.getFactory(std::move(inputStream));
+            Figures.push_back(factory->create());
         } catch (const std::exception& e) {
-            std::cerr << "Error: " << e.what() << '\n';
+            std::cerr << "Error: " << e.what() << "\n";
         }
     }
-}
-void createFigThroughConsole(std::vector<std::unique_ptr<Figure> >& figures)
-{
-    std::cout << "Enter figure: ";
-    StreamFigureFactory streamFactory(&std::cin);
-    try {
-            auto newFigure = streamFactory.create();
-            figures.push_back(std::move(newFigure));
-            std::cout << "Figure added successfully.\n";
-        } catch (const std::exception& e) {
-            std::cerr << "Error: " << e.what() << '\n';
-        }
-    
-}
-void createFigThroughFile(std::vector<std::unique_ptr<Figure> >& figures)
-{
-    std::cout << "Enter file name: ";
-    std::string fileName;
-    std::cin >> fileName;
-    std::ifstream file(fileName);
-    if(!file.is_open()) {
-        std::cout << "Invalid file name or path or file doesn't exist\n";
-        file.close();
-        return;
-    }
-    StreamFigureFactory streamFactory(&file);
-    try {
-        auto newFigure = streamFactory.create();
-        figures.push_back(std::move(newFigure));
-        std::cout << "Figure added successfully.\n";
-        file.close();
-    } catch (const std::exception& e) {
-        std::cerr << "Error: " << e.what() << '\n';
-        file.close();
-    }
-    file.close();
+    return 0;
 }

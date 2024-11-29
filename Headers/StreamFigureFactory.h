@@ -10,9 +10,9 @@
 
 class StreamFigureFactory : public Factory{
 private:
-    std::istream* input = nullptr;
+    std::unique_ptr<std::istream> input = nullptr;
 public:
-    StreamFigureFactory(std::istream* input);
+    StreamFigureFactory(std::unique_ptr<std::istream> input);
     std::unique_ptr<Figure> create() override;
 };
 

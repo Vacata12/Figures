@@ -72,28 +72,27 @@ TEST_CASE("Create triangle through string factory") {
 }
 
 TEST_CASE("Create triangle through stream factory") {
-    std::istringstream* input = new std::istringstream("Triangle 3 4 5");
-    StreamFigureFactory sff(input);
+    std::unique_ptr<std::istream> input = std::make_unique<std::istringstream>("Triangle 3 4 5");
+    StreamFigureFactory sff(std::move(input));
     std::unique_ptr<Figure> t = sff.create();
     REQUIRE(t->toString() == "Triangle 3 4 5");
-    delete input;
 }
 
 TEST_CASE("Create Rectangle through file in stream factory") {
-    std::ifstream* file = new std::ifstream("../src/figures.txt");
+    std::unique_ptr<std::ifstream> file = std::make_unique<std::ifstream>("../src/figures.txt");
     REQUIRE(file->is_open());
-    StreamFigureFactory sff(file);
+    StreamFigureFactory sff(std::move(file));
     std::unique_ptr<Figure> r = sff.create();
     REQUIRE(r->toString() == "Rectangle 10 20");
-    delete file;
 }
 
-TEST_CASE("Create abstract factory") {
+TEST_CASE("Create figure through abstract factory") {
     AbstractFactory af;
-    Factory* rf = af.getFactory("random");
-    Factory* sf = af.getFactory("stream", new std::istringstream("Triangle 3 4 5"));
-    REQUIRE(dynamic_cast<RandomGeneratorFigures*>(rf));
-    REQUIRE(dynamic_cast<StreamFigureFactory*>(sf));
-    delete rf;
-    delete sf;
+    std::unique_ptr<std::istringstream> r = std::make_unique<std::istringstream>("random");
+    std::unique_ptr<Factory> rf = af.getFactory(std::move(r));
+    std::unique_ptr<std::istringstream> iss = std::make_unique<std::istringstream>("stream Triangle 3 4 5");
+    std::unique_ptr<Factory> sf = af.getFactory(std::move(iss));
+
+    std::unique_ptr<Figure> figure = sf->create();
+    REQUIRE(figure->toString() == "Triangle 3 4 5");
 }

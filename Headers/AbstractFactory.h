@@ -7,11 +7,10 @@
 #include "StreamFigureFactory.h"
 #include "RandomGeneratorFigures.h"
 
-
 class AbstractFactory {
 public:
     AbstractFactory() = default;
-    Factory* getFactory(const std::string& input, std::istream* stream = nullptr);
+    std::unique_ptr<Factory> getFactory(std::unique_ptr<std::istream> stream);
 };
 
 #endif //ABSTRACTFACTORY_H
