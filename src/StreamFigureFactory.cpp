@@ -9,7 +9,14 @@ StreamFigureFactory::StreamFigureFactory(std::unique_ptr<std::istream> input) : 
 
 std::unique_ptr<Figure> StreamFigureFactory::create() {
     std::string line;
-    if (std::getline(*input, line)) {
+    std::getline(*input, line);
+    std::ifstream file(line);
+    if (file.is_open()) {
+        std::getline(file, line);
+        file.close();
+        return StringFiguresFactory::createFromString(line);
+    }
+    else {
         return StringFiguresFactory::createFromString(line);
     }
     return nullptr;

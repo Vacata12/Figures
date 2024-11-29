@@ -25,6 +25,7 @@ std::unique_ptr<Figure> StringFiguresFactory::createFromString(const std::string
     if (representation.empty()) {
         return nullptr;
     }
+    std::cout << representation << std::endl;
     //find(' ') will return the position of the first whitespace
     size_t whiteSpace = representation.find(' ');
     if(whiteSpace == std::string::npos) {
