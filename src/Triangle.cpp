@@ -8,11 +8,14 @@ bool Triangle::validateTriangle(const double &a, const double &b, const double &
 }
 
 Triangle::Triangle(const double &a, const double &b, const double &c) {
+    if(!validateTriangle(a,b,c) || !positiveNums({a, b, c})) {
+        throw std::invalid_argument("Invalid triangle sides");
+    }
     if(checkForOverFlow({a, b, c})) {
         throw std::overflow_error("Overflow Error");
     }
-    if(!validateTriangle(a,b,c) || !positiveNums({a, b, c})) {
-        throw std::invalid_argument("Invalid triangle sides");
+    if(validateTriangle(a,b,c)) {
+        
     }
     this->a = a;
     this->b = b;

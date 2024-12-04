@@ -4,16 +4,26 @@
 #include "../Headers/RandomGeneratorFigures.h"
 
 std::unique_ptr<Figure> RandomGeneratorFigures::create() {
-    int figure = std::rand() % 3;
-    std::uniform_real_distribution<double> unif(min,max);
-    std::default_random_engine re;
-    switch (figure) {
-        case 0:
-            return std::make_unique<Circle>(unif(re));
-        case 1:
-            return std::make_unique<Rectangle>(unif(re), unif(re));
-        case 2:
-            return std::make_unique<Triangle>(unif(re), unif(re), unif(re));
+    while(true) {
+        try
+        {
+            int figure = std::rand() % 3;
+            std::uniform_real_distribution<double> unif(min,max);
+            std::default_random_engine re;
+            switch (figure)
+            {
+            case 0:
+                return std::make_unique<Circle>(unif(re));
+            case 1:
+                return std::make_unique<Rectangle>(unif(re), unif(re));
+            case 2:
+                return std::make_unique<Triangle>(unif(re), unif(re), unif(re));
+            }
+        }
+        catch(const std::exception& e)
+        {
+        }
+        
     }
     return nullptr;
 }
