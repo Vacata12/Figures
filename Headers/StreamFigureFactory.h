@@ -11,6 +11,7 @@
 class StreamFigureFactory : public Factory{
 private:
     std::unique_ptr<std::istream> input = nullptr;
+    std::unique_ptr<std::ifstream> file =  nullptr;
 public:
     StreamFigureFactory(std::unique_ptr<std::istream> input);
     std::unique_ptr<Figure> create() override;

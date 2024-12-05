@@ -5,19 +5,24 @@
 #include "../Headers/StreamFigureFactory.h"
 
 
-StreamFigureFactory::StreamFigureFactory(std::unique_ptr<std::istream> input) : input(std::move(input)) {}
-
-std::unique_ptr<Figure> StreamFigureFactory::create() {
+StreamFigureFactory::StreamFigureFactory(std::unique_ptr<std::istream> input) : input(std::move(input)) {
     std::string line;
     std::getline(*input, line);
-    std::ifstream file(line);
-    if (file.is_open()) {
-        std::getline(file, line);
-        file.close();
-        return StringFiguresFactory::createFromString(line);
+    if(line.substr(0 , 16) == "stream filepath") {
+        file = std::unique_ptr<std::ifstream>(new std::ifstream(line.substr(18)));
+    }
+}
+
+std::unique_ptr<Figure> StreamFigureFactory::create() {
+    if(this->file->is_open()) {
+        std::string figure;
+        std::getline(*file, figure);
+        return StringFiguresFactory::createFromString(figure);
     }
     else {
-        return StringFiguresFactory::createFromString(line);
+        std::string figure;
+        std::getline(*input, figure);
+        return StringFiguresFactory::createFromString(figure);
     }
     return nullptr;
 }

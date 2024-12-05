@@ -14,7 +14,7 @@ int main() {
     while (true) {
         std::cout << "'random' -> creates random figure\n"
                   << "'stream Figure sides' -> example 'stream Rectangle 10 20'\n"
-                  << "'stream filepath' -> use file input\n"
+                  << "'stream filepath' -> example 'stream filepath ../src/figures.txt'\n"
                   << "exit -> quit\n"
                   << "Enter command: ";
         std::string input;
