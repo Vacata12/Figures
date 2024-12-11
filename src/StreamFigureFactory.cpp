@@ -8,9 +8,10 @@
 StreamFigureFactory::StreamFigureFactory(std::unique_ptr<std::istream> input) : input(std::move(input)) {
     std::string line;
     size_t pos = this->input->tellg();
+    this->input->seekg(0);
     std::getline(*this->input, line);
-    if(line.substr(0 , 16) == "stream filepath") {
-        file = std::unique_ptr<std::ifstream>(new std::ifstream(line.substr(18)));
+    if(line.substr(0 , 15) == "stream filepath") {
+        file = std::unique_ptr<std::ifstream>(new std::ifstream(line.substr(16)));
     }
     else {
         this->input->seekg(pos);

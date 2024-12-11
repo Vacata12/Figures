@@ -7,6 +7,12 @@
 #include "../Headers/HelperFunctions.h"
 #include "../Headers/AbstractFactory.h"
 
+void print(std::vector<std::unique_ptr<Figure> >& figures) {
+    for (size_t i = 0; i < figures.size(); i++) {
+        std::cout << figures[i]->toString();
+        std::cout << std::endl;
+    }
+}
 
 int main() {
     std::vector<std::unique_ptr<Figure> > Figures;
@@ -15,11 +21,16 @@ int main() {
         std::cout << "'random' -> creates random figure\n"
                   << "'stream Figure sides' -> example 'stream Rectangle 10 20'\n"
                   << "'stream filepath' -> example 'stream filepath ../src/figures.txt'\n"
+                  << "'print -> see all figures"
                   << "exit -> quit\n"
                   << "Enter command: ";
         std::string input;
         std::getline(std::cin, input);
         if (input == "exit") {
+            break;
+        }
+        if (input == "print") {
+            print(Figures);
             break;
         }
         try {
