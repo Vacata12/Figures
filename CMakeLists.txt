@@ -62,16 +62,19 @@ target_link_libraries(
         samplelib
 )
 
-# Make Catch2 available
+# Make Google Test available
 include(FetchContent)
 
 FetchContent_Declare(
-        Catch2
-        GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-        GIT_TAG v3.1.1
+        googletest
+        GIT_REPOSITORY https://github.com/google/googletest.git
+        GIT_TAG release-1.12.1
 )
 
-FetchContent_MakeAvailable(Catch2)
+FetchContent_MakeAvailable(googletest)
+
+# Enable testing
+enable_testing()
 
 # Executable target for the unit tests
 add_executable(unit-tests
@@ -87,12 +90,9 @@ target_link_libraries(
         unit-tests
         PRIVATE
         samplelib
-        Catch2::Catch2WithMain
+        gtest_main
 )
 
-target_include_directories(unit-tests PRIVATE ${catch2_SOURCE_DIR}/extras)
-
 # Automatically register all tests
-include(CTest)
-include(Catch)
-catch_discover_tests(unit-tests)
+include(GoogleTest)
+gtest_discover_tests(unit-tests)

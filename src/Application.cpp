@@ -7,6 +7,9 @@
 #include "../Headers/HelperFunctions.h"
 #include "../Headers/AbstractFactory.h"
 
+
+
+
 void print(std::vector<std::unique_ptr<Figure> >& figures) {
     for (size_t i = 0; i < figures.size(); i++) {
         std::cout << figures[i]->toString();
