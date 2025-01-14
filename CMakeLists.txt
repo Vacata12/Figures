@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.14)
 project(Figures)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -52,6 +52,9 @@ add_executable(application
         Headers/HelperFunctions.h
         src/HelperFunctions.cpp
         Headers/Figure.h
+        Headers/CircleFixture.h
+        Headers/TriangleFixture.h
+        Headers/RectangleFixture.h
 )
 
 set_target_properties(application PROPERTIES OUTPUT_NAME "calc")
@@ -84,6 +87,9 @@ add_executable(unit-tests
         src/StreamFigureFactory.cpp
         Headers/AbstractFactory.h
         src/AbstractFactory.cpp
+        src/CircleFixture.cpp
+        src/TriangleFixture.cpp
+        src/RectangleFixture.cpp
 )
 
 target_link_libraries(

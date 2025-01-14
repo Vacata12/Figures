@@ -23,3 +23,8 @@ std::string Circle::toString() const {
     //In docs says to use it before c++26 XD
     return  "Circle " + convertDoubleToString(r);
 }
+
+void Circle::setR(double r) {
+    this->r = r;
+    this->per = 2 * 3.14 * r;
+}

@@ -14,5 +14,6 @@ public:
     double getPerimeter() const override;
     std::unique_ptr<Figure> clone() const override;
     std::string toString() const override;
+    void setR(double r);
 };
 #endif //CIRCLE_H

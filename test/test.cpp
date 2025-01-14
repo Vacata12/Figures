@@ -9,12 +9,70 @@
 #include "../Headers/StringFiguresFactory.h"
 #include "../Headers/StreamFigureFactory.h"
 #include "../Headers/AbstractFactory.h"
+#include "../Headers/CircleFixture.h"
+#include "../Headers/TriangleFixture.h"
+#include "../Headers/RectangleFixture.h"
 // #include "catch2/internal/catch_test_registry.hpp"
 
 TEST(positiveNums, ChecksIfAllNumsArePositive)
 {
     EXPECT_TRUE(positiveNums({1, 2, 3, 4, 5}));
 }
+TEST(positiveNums, ChechWithNegativeAndZero)
+{
+    EXPECT_FALSE(positiveNums({1, 2, 3, -4, 5}));
+    EXPECT_FALSE(positiveNums({1, 2, 0, 4, 5}));
+}
+
+TEST(Circle, InvalidCircle)
+{
+    EXPECT_THROW(Circle(0), std::invalid_argument);
+    EXPECT_THROW(Circle(-1), std::invalid_argument);
+}
+
+TEST(Triangle, InvalidTriangle)
+{
+    EXPECT_THROW(Triangle(std::numeric_limits<double>::max(), 2, 3), std::overflow_error);
+    EXPECT_THROW(Triangle(1, 2, 3), std::invalid_argument);
+    EXPECT_THROW(Triangle(0, 0, 3), std::invalid_argument);
+    EXPECT_THROW(Triangle(1, -2, 3), std::invalid_argument);
+}
+
+TEST(Rectangle, InvalidRectangle)
+{
+    EXPECT_THROW(Rectangle(0, 0), std::invalid_argument);
+    EXPECT_THROW(Rectangle(-1, 2), std::invalid_argument);
+    EXPECT_THROW(Rectangle(std::numeric_limits<double>::max(), 1), std::overflow_error);
+}
+
+
+TEST_F(CircleFixture, CirclePerimeter)
+{
+    EXPECT_NEAR(c.getPerimeter(), 31.4, 0.2);
+}
+TEST_F(CircleFixture, CircleToStringFunction)
+{
+    EXPECT_TRUE((c.toString() == "Circle 5"));
+}
+
+TEST_F(TriangleFixture, TrianglePerimeter)
+{
+    EXPECT_DOUBLE_EQ(t->getPerimeter(), 12);
+}
+TEST_F(TriangleFixture, TriangleToStringFunction)
+{
+    EXPECT_TRUE(t->toString() == "Triangle 3 4 5");
+}
+
+TEST_F(RectangleFixture, RectanglePerimeter)
+{
+    EXPECT_DOUBLE_EQ(r->getPerimeter(), 30);
+}
+TEST_F(RectangleFixture, RectangleToStringFunction)
+{
+    EXPECT_TRUE(r->toString() == "Rectangle 10 5");
+}
+
 
 // TEST_CASE("Invalid triangle") {
 //     REQUIRE_THROWS_AS(Triangle(1, 2, 3), std::invalid_argument);
