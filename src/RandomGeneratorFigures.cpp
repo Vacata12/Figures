@@ -9,7 +9,6 @@ std::unique_ptr<Figure> RandomGeneratorFigures::create() {
         {
             int figure = std::rand() % 3;
             std::uniform_real_distribution<double> unif(min,max);
-            std::default_random_engine re;
             switch (figure)
             {
             case 0:

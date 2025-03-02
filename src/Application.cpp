@@ -21,7 +21,7 @@ int main() {
         std::cout << "'random' -> creates random figure\n"
                   << "'stream Figure sides' -> example 'stream Rectangle 10 20'\n"
                   << "'stream filepath' -> example 'stream filepath ../src/figures.txt'\n"
-                  << "'print -> see all figures"
+                  << "'print -> see all figures\n"
                   << "exit -> quit\n"
                   << "Enter command: ";
         std::string input;
